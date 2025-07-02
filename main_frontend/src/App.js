@@ -8,20 +8,19 @@ import ProgressTracker from "./ProgressTracker";
 import LevelsSelector from "./LevelsSelector";
 
 /**
- * Main app for FitFlex - SPA with navigation and auth.
+ * Main app for FitFlex - SPA with navigation and auth,
+ * applying a modern, light dashboard layout.
  */
 // PUBLIC_INTERFACE
 function App() {
   const [theme, setTheme] = useState('light');
   const [user, setUser] = useState(null); // Authenticated user object/null
   const [route, setRoute] = useState("workout"); // 'login' | 'register' | 'profile' | 'workout' | 'progress' | 'levels'
-  
-  // Try to load user from token on mount - in full app, decode or fetch profile
+
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     const token = localStorage.getItem("fitflex_token");
     if (token && !user) {
-      // On app refresh, attempt silent login using fetchProfile (no UI for invalid)
       import("./api").then(api => {
         api.fetchProfile().then(
           u => setUser(u), 
@@ -53,20 +52,22 @@ function App() {
     setRoute("workout");
   };
 
-  // Navigation bar for logged-in users
+  // Navigation bar for logged-in users, styled for dashboard feel
   function Nav() {
     return (
-      <nav className="navbar" style={{ display: "flex", gap: 28, padding: 16, background: "var(--bg-secondary)", borderBottom: "1px solid var(--border-color)", alignItems: "center", justifyContent: "center" }}>
-        <button className={`btn${route==="workout"?" btn-active":""}`} onClick={() => setRoute("workout")}>Workout Plan</button>
-        <button className={`btn${route==="progress"?" btn-active":""}`} onClick={() => setRoute("progress")}>Progress</button>
-        <button className={`btn${route==="levels"?" btn-active":""}`} onClick={() => setRoute("levels")}>Levels</button>
-        <button className={`btn${route==="profile"?" btn-active":""}`} onClick={() => setRoute("profile")}>Profile</button>
-        <button className="btn btn-logout" style={{ marginLeft: 28, background: "#d9534f" }} onClick={handleLogout}>Logout</button>
+      <nav className="navbar">
+        <div style={{ display: "flex", gap: 10, alignItems: "center", flex: 1, justifyContent: "center" }}>
+          <button className={`btn${route==="workout"?" btn-active":""}`} onClick={() => setRoute("workout")}>Workout Plan</button>
+          <button className={`btn${route==="progress"?" btn-active":""}`} onClick={() => setRoute("progress")}>Progress</button>
+          <button className={`btn${route==="levels"?" btn-active":""}`} onClick={() => setRoute("levels")}>Levels</button>
+          <button className={`btn${route==="profile"?" btn-active":""}`} onClick={() => setRoute("profile")}>Profile</button>
+        </div>
+        <button className="btn btn-logout" style={{ background: "#d9534f", minWidth: 96 }} onClick={handleLogout}>Logout</button>
         <button 
           className="theme-toggle"
           onClick={toggleTheme}
           aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-          style={{ marginLeft: "auto" }}
+          title={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}
         >
           {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
         </button>
@@ -74,7 +75,7 @@ function App() {
     );
   }
 
-  // Route-based content
+  // Page-level content for all major routes/screens
   let content;
   if (!user) {
     if (route === "register") {
@@ -112,19 +113,39 @@ function App() {
   return (
     <div className="App">
       {user && <Nav />}
-      <main>
+      <main style={{
+        margin: "0 auto",
+        maxWidth: 900,
+        minHeight: user ? "75vh" : "90vh",
+        background: "var(--bg-primary)",
+        padding: user ? "40px 0 40px 0" : "40px 0 0 0"
+      }}>
         {content}
       </main>
+      {/* Show theme toggle for login/register too, floating at top right */}
       {!user && (
         <button 
           className="theme-toggle"
           onClick={toggleTheme}
           aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-          style={{ position: 'absolute', top: 20, right: 20 }}
+          style={{
+            position: 'fixed', top: 20, right: 20, zIndex: 99
+          }}
         >
           {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
         </button>
       )}
+      <footer style={{
+        background: "var(--bg-secondary)",
+        color: "#7a7a7a",
+        fontSize: 13,
+        padding: "16px 0",
+        textAlign: "center",
+        borderTop: "1.5px solid var(--border-color)",
+        marginTop: 42
+      }}>
+        <span>FitFlex &copy; {new Date().getFullYear()} &mdash; Modern Fitness Hub</span>
+      </footer>
     </div>
   );
 }

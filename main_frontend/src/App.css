@@ -1,13 +1,18 @@
 /* CSS Variables for Theme Management */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  /* Light Modern FitFlex Theme */
+  --primary: #6C63FF;
+  --secondary: #232323;
+  --accent: #00C897;
+  --bg-primary: #f8fafe;
+  --bg-secondary: #ffffff;
+  --text-primary: #232323;
+  --text-secondary: #6C63FF;
+  --border-color: #ebecf0;
+  --button-bg: var(--primary);
+  --button-text: #fff;
+  --input-bg: #fff;
+  --input-focus: #00C89722;
 }
 
 [data-theme="dark"] {
@@ -101,4 +106,153 @@
     padding: 8px 16px;
     font-size: 12px;
   }
+  .container {
+    margin: 1rem 6px !important;
+    padding: 18px 6px !important;
+  }
+  .navbar {
+    flex-direction: column;
+    align-items: stretch !important;
+    gap: 9px !important;
+  }
+  .plan-table th, .plan-table td {
+    font-size: 13px !important;
+    padding: 6px !important;
+  }
+}
+
+/* --- FitFlex Modern Theme Additions --- */
+.btn, .btn-link, .btn-logout {
+  display: inline-block;
+  padding: 10px 26px;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  background: var(--button-bg);
+  color: var(--button-text);
+  box-shadow: 0 2px 4px rgba(108,99,255,0.05);
+  cursor: pointer;
+  transition: background .18s, color .18s, box-shadow .18s;
+  outline: none;
+  margin: 0 0.25em 0.75em 0;
+  letter-spacing: 0.01em;
+}
+
+.btn:hover, .btn:focus {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 4px 12px 0 rgba(0,200,151,0.10);
+}
+.btn-link {
+  background: transparent;
+  color: var(--primary);
+  text-decoration: underline;
+  padding: 4px 8px;
+  font-weight: bold;
+  box-shadow: none;
+}
+.btn-link:hover { color: var(--accent); background: none; }
+.btn-logout { background: #d9534f; color: #fff; }
+.btn-logout:hover { background: #ba3b37; }
+
+.btn-active, .navbar .btn-active {
+  background: var(--accent);
+  color: #fff !important;
+  box-shadow: 0 2px 8px 0 rgba(0,200,151,0.12);
+}
+.navbar {
+  display: flex;
+  gap: 24px;
+  padding: 14px 0 0 0;
+  background: var(--bg-secondary);
+  border-bottom: 2px solid var(--primary);
+  align-items: center;
+}
+.navbar button {
+  margin-bottom: 0;
+}
+
+.container {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 30px 34px 24px 34px;
+  margin: 2.5rem auto;
+  box-shadow: 0 4px 24px 0 rgba(108,99,255,0.05);
+}
+
+input, select, textarea {
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: var(--input-bg);
+  font-size: 15px;
+  color: var(--text-primary);
+  transition: border 0.15s, box-shadow 0.18s;
+  margin-bottom: 6px;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 4px var(--input-focus);
+  outline: none;
+}
+label {
+  font-size: 15px;
+  color: var(--primary);
+  margin-bottom: 2px;
+}
+
+.plan-table, .container table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--bg-primary);
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 0 auto;
+  font-size: 15px;
+}
+
+.plan-table th, .plan-table td {
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.plan-table th {
+  color: var(--primary);
+  background: #f4f6fa;
+  font-weight: 700;
+}
+
+.plan-table tr:last-child td {
+  border-bottom: none;
+}
+
+.plan-table td ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+h2, h3 {
+  color: var(--primary);
+  margin-bottom: 18px;
+}
+a, .App-link {
+  color: var(--accent);
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.error, .form-error {
+  color: #d9534f !important;
+  font-size: 15px;
+  margin-top: 6px;
+}
+.success, .form-success {
+  color: #25bc43 !important;
+  font-size: 15px;
+  margin-top: 6px;
 }
