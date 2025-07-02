@@ -1,82 +1,110 @@
-# Lightweight React Template for KAVIA
+# FitFlex Main Frontend
 
-This project provides a minimal React template with a clean, modern UI and minimal dependencies.
+This project is the user-facing React web application for FitFlex, allowing fitness enthusiasts to generate, view, and track personalized workout plans.
 
 ## Features
 
-- **Lightweight**: No heavy UI frameworks - uses only vanilla CSS and React
-- **Modern UI**: Clean, responsive design with KAVIA brand styling
-- **Fast**: Minimal dependencies for quick loading times
-- **Simple**: Easy to understand and modify
+- **User registration and authentication**
+- **Dynamic weekly workout plan generation**
+- **Experience level selection (beginner/intermediate/advanced)**
+- **Reps and sets breakdown per exercise**
+- **Progress tracking dashboard**
+- **Modern, responsive UI**
+
+---
 
 ## Getting Started
 
-In the project directory, you can run:
+### 1. Prerequisites
 
-### `npm start`
+- [Node.js](https://nodejs.org/) (v14+ recommended)
+- [npm](https://www.npmjs.com/)
+- The `workout_backend` container must be running and accessible.
 
-Runs the app in development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 2. Environment Setup
 
-### `npm test`
+This app uses an environment variable for the backend API URL. **You must create a `.env` file before starting.**
 
-Launches the test runner in interactive watch mode.
+1. Copy the example file:
+   ```sh
+   cp .env.example .env
+   ```
+2. Edit `.env` and set `REACT_APP_API_BASE_URL` to the base URL of your backend API,
+   for example:
+   ```
+   REACT_APP_API_BASE_URL=http://localhost:5000/api/v1
+   ```
 
-### `npm run build`
+### 3. Install Dependencies
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```sh
+npm install
+```
+
+### 4. Start the Development Server
+
+```sh
+npm start
+```
+Open [http://localhost:3000](http://localhost:3000) to view the app in your browser.
+
+---
+
+## Connecting to the Backend
+
+To ensure the frontend connects to your backend API (`workout_backend`):
+
+- The variable `REACT_APP_API_BASE_URL` in your `.env` must point to the correct base (e.g., `http://localhost:5000/api/v1`).
+- The backend server must have CORS enabled for `http://localhost:3000` (see backend docs).
+- Full API integration expects endpoints for authentication, profile, workouts, levels, and progress (see backend contract).
+
+---
+
+## Important Environment Variables
+
+| Variable                | Description                                 | Example Value                    |
+|-------------------------|---------------------------------------------|----------------------------------|
+| REACT_APP_API_BASE_URL  | URL for the backend API (must include /v1)  | http://localhost:5000/api/v1     |
+
+See `.env.example` for format.
+
+---
+
+## Project Structure
+
+```
+main_frontend/
+├── public/
+├── src/
+│   ├── api.js
+│   ├── App.js
+│   ├── ...
+├── .env.example
+└── README.md
+```
+
+---
 
 ## Customization
 
 ### Colors
 
-The main brand colors are defined as CSS variables in `src/App.css`:
+FitFlex theme colors are defined as CSS variables in `src/App.css`, e.g.:
 
 ```css
 :root {
-  --kavia-orange: #E87A41;
-  --kavia-dark: #1A1A1A;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --text-primary: #282c34;
+  --accent: #00C897;
 }
 ```
 
-### Components
-
-This template uses pure HTML/CSS components instead of a UI framework. You can find component styles in `src/App.css`. 
-
-Common components include:
-- Buttons (`.btn`, `.btn-large`)
-- Container (`.container`)
-- Navigation (`.navbar`)
-- Typography (`.title`, `.subtitle`, `.description`)
+---
 
 ## Learn More
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [React Documentation](https://reactjs.org/)
+- [API Documentation](../workout_backend/README.md) *(See backend for endpoint contract)*
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
